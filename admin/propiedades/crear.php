@@ -26,9 +26,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   //  var_dump($_POST); 
   //  echo "</pre>";  
 
-    echo "<pre>";
-   var_dump($_FILES); 
-   echo "</pre>";  
+  //   echo "<pre>";
+  //  var_dump($_FILES); 
+  //  echo "</pre>";  
 
 
   $titulo =mysqli_real_escape_string($db,  $_POST['titulo']); 
@@ -93,8 +93,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   // REVISAR QUE EL ARRAY DE ERRORES EST VACIO
   if(empty($errores)){
 
+          /** SUBIDA DE ARCHIVOS**/
+
+          $carpetaImagenes = '../../imagenes/'; 
+          if(!is_dir($carpetaImagenes)){
+                mkdir($carpetaImagenes);
+          }
+
+          // Generar un nombre unico 
+          $nombreImagen = md5( uniqid(rand(), true)) . ".jpg"; 
+
+        
+         
+          // subir la imagen
+          move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen); 
+
+       
+
           // INSERTAR EN LA BASE DE DATOS 
-        $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id') "; 
+        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento,
+         creado, vendedores_id) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', 
+         '$wc', '$estacionamiento', '$creado', '$vendedores_id') "; 
 
 
         // echo $query; 
@@ -138,7 +157,7 @@ incluirTemplates('header');
           <input type="file"  id="imagen" accept="image/jpeg, image/png" name="imagen">
           
           <label for="descripcion">Descripcion:</label>
-          <textarea id="descipcion" name="descripcion"><?php echo $descripcion?></textarea>
+          <textarea id="descripcion" name="descripcion"><?php echo $descripcion?></textarea>
 
         </fieldset>
 
