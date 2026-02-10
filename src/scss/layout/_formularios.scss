@@ -1,0 +1,52 @@
+.formulario { // 🔹 Selecciona todo el formulario con la clase .formulario
+
+    // 🔸 Estilos para los párrafos dentro del formulario
+    p { 
+        font-size: 1.4rem;        // Tamaño de letra un poco pequeño
+        color: $grisOscuro;       // Color gris oscuro (definido en tus variables)
+        margin: 2rem 0 0 0;       // Margen superior de 2rem, sin margen abajo o a los lados
+    }
+
+    // 🔸 Estilo para el título de cada fieldset
+    legend {
+        font-size: 2rem;          // Hace el texto del legend más grande
+        color: $grisOscuro;       // Mismo color gris oscuro
+    }
+
+    // 🔸 Estilo general para todos los labels del formulario
+    label {
+        font-weight: $bold;       // Usa la variable $bold (probablemente 700 o 800)
+        text-transform: uppercase;// Convierte el texto del label a MAYÚSCULAS
+        display: block;           // Hace que cada label ocupe una línea completa
+    }
+
+    // 🔸 Aplica estilo a todos los inputs, textareas y selects,
+    //     excepto a los botones submit.
+    input:not([type="submit"]), textarea, select {
+        padding: 1rem;            // Espacio interno dentro del campo
+        display: block;           // Cada elemento en su propia línea
+        width: 100%;              // Que ocupen todo el ancho disponible del contenedor
+        background-color: $blanco;// Fondo blanco (variable definida en tu SCSS)
+        border: 1px solid $gris;  // Borde gris
+        border-radius: 1rem;      // Bordes redondeados de 1rem
+        margin-bottom: 2rem;      // Espacio inferior entre cada campo
+    }
+
+    textarea {
+        height: 20rem;
+
+    }
+    // 🔸 Contenedor para los radios (teléfono / email)
+    .forma-contacto {
+        max-width: 30rem;             // Máximo ancho del bloque (300px aprox.)
+        display: flex;                // Muestra los elementos (label + input) en una sola fila
+        justify-content: space-between; // Deja espacio uniforme entre ellos
+        align-items: center;          // Centra verticalmente los radios con su texto
+    }
+
+    // 🔸 Estilo específico para los botones de tipo radio
+    input[type="radio"] {
+        margin: 0;                    // Quita el margen por defecto
+        width: auto;                  // Evita que el ancho sea 100% (heredado del anterior input)
+    }
+}
