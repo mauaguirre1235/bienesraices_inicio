@@ -6,8 +6,12 @@ $db = conectarDB();
 
 // CONSULTAR PARA OBTENER LOS VENDEDORES
 $consulta = "SELECT * FROM vendedores";
+<<<<<<< HEAD
 $resultado = mysqli_query($db, $consulta);  
 
+=======
+$resultado = mysqli_query($db, $consulta); 
+>>>>>>> e3f7e1643cd40d3056f1fb3d1d7db0fe78dc5ad5
 
 // Arreglo con mensajes de errores 
 $errores = [];
