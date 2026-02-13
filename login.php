@@ -1,5 +1,7 @@
 <?php
 
+use Dom\Mysql;
+
 require 'includes/config/database.php';
 $db = conectarDB(); 
 
@@ -27,8 +29,40 @@ if(!$password) {
 
   // REVISAR SI EL USUARIO EXISTE
   $query = "SELECT * FROM usuarios WHERE email = '${email}' "; 
+  $resultado = mysqli_query($db, $query); 
 
-  var_dump($query); 
+
+ 
+
+  if($resultado -> num_rows) {
+
+  // revisar si el pasword es correcto
+  $usuario = mysqli_fetch_assoc($resultado);
+  
+ 
+
+
+  // verificar si el password es correcto o no 
+  $auth = password_verify($password, $usuario['password']); 
+  
+  if($auth) {
+    // el usuario esta autenticado
+    session_start();
+    
+    // llenar el arreglo de la sesion 
+    $_SESSION['usuario'] = $usuario['email']; 
+    $_SESSION['login'] = true; 
+
+    header('Location: /admin');
+ 
+  } else {
+    
+    $errores [] ="El password es incorrecto"; 
+  }
+  } else {
+    $errores [] = "el usuario no existe";
+
+  }
     
   }
 

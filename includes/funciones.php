@@ -7,3 +7,15 @@ function incluirTemplates ($nombre, $inicio = false){
 } 
 
 
+function estaAutenticado() : bool {
+
+session_start();
+$auth = $_SESSION['login']; 
+
+    if($auth){
+        return true; 
+
+    } 
+    return false; 
+
+}

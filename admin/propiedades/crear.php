@@ -1,17 +1,24 @@
 <?php 
-// Base de datos 
+require '../../includes/funciones.php';
+$auth = estaAutenticado(); 
 
+    if(!$auth) {
+      header('Location: /'); 
+
+ }
+ 
+
+// Base de datos 
 require '../../includes/config/database.php'; 
 $db = conectarDB(); 
 
 // CONSULTAR PARA OBTENER LOS VENDEDORES
 $consulta = "SELECT * FROM vendedores";
-<<<<<<< HEAD
+
 $resultado = mysqli_query($db, $consulta);  
 
-=======
+
 $resultado = mysqli_query($db, $consulta); 
->>>>>>> e3f7e1643cd40d3056f1fb3d1d7db0fe78dc5ad5
 
 // Arreglo con mensajes de errores 
 $errores = [];
@@ -135,7 +142,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   
 }
 
-require '../../includes/funciones.php';
+
 incluirTemplates('header'); 
 ?> 
     <main class="contenedor">

@@ -5,15 +5,10 @@ $id = filter_var($id, FILTER_VALIDATE_INT);
 
 if (!$id) {
     header('Location: /');
-<<<<<<< HEAD
 } 
-
-=======
-}
->>>>>>> e3f7e1643cd40d3056f1fb3d1d7db0fe78dc5ad5
-
 //Importar la conexion 
-require 'includes/config/database.php';
+require 'includes/config/database.php'; 
+
 $db = conectarDB();
 
 // consultar 
