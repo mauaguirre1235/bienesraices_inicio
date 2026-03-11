@@ -1,17 +1,15 @@
 <?php 
-require '../../includes/funciones.php';
-$auth = estaAutenticado(); 
+require '../../includes/app.php';
 
-    if(!$auth) {
-      header('Location: /'); 
+use App\Propiedad;  
 
- }
+
+estaAutenticado(); 
+
+
  
-
 // Base de datos 
-require '../../includes/config/database.php'; 
 $db = conectarDB(); 
-
 // CONSULTAR PARA OBTENER LOS VENDEDORES
 $consulta = "SELECT * FROM vendedores";
 
