@@ -25,9 +25,14 @@ class Propiedad {
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
-        $this->creado =  $args['creado'] ?? '';
+        $this->creado = date('Y/m/d');
         $this->vendedores_id = $args['vendedores_id'] ?? '';    
     }
+
+    public function guardar() {
+        // Insertar en la base de datos 
+        echo "Guardando en la base de datos";   
+    }   
 
 }   
 

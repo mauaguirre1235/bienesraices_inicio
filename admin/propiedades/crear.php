@@ -6,17 +6,16 @@ use App\Propiedad;
 
 estaAutenticado(); 
 
-
  
 // Base de datos 
 $db = conectarDB(); 
+
+
 // CONSULTAR PARA OBTENER LOS VENDEDORES
 $consulta = "SELECT * FROM vendedores";
 
 $resultado = mysqli_query($db, $consulta);  
 
-
-$resultado = mysqli_query($db, $consulta); 
 
 // Arreglo con mensajes de errores 
 $errores = [];
@@ -32,13 +31,20 @@ $errores = [];
 // Ejecuta el codigo despues de que el usuario envia el formulario 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+$propiedad = new Propiedad($_POST);
+
+$propiedad->guardar();  
+
+
+
+
   //  echo "<pre>";
   //  var_dump($_POST); 
   //  echo "</pre>";  
 
-  //   echo "<pre>";
-  //  var_dump($_FILES); 
-  //  echo "</pre>";  
+   echo "<pre>";
+   var_dump($_FILES); 
+   echo "</pre>";  
 
 
   $titulo =mysqli_real_escape_string($db,  $_POST['titulo']); 
@@ -47,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']); 
   $wc = mysqli_real_escape_string($db, $_POST['wc']);
   $estacionamiento =mysqli_real_escape_string($db,  $_POST['estacionamiento']);
-  $vendedores_id =mysqli_real_escape_string($db,  $_POST['vendedor']); 
+  $vendedores_id =mysqli_real_escape_string($db,  $_POST['vendedores_id']); 
   $creado =date('Y/m/d');
 
   //Asignar files hacia una variable 
@@ -186,7 +192,7 @@ incluirTemplates('header');
 
         <fieldset> 
           <legend> Vendedor </legend>
-          <select name="vendedor"> 
+          <select name="vendedores_id"> 
             <option value="">--Seleccione--</option>
             <?php while($vendedor = mysqli_fetch_assoc($resultado)): ?>
               <option <?php echo $vendedores_id === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"> <?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?> </option>
