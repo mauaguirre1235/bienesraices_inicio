@@ -2,7 +2,8 @@
 require '../../includes/app.php';
 
 use App\Propiedad;
-
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager as Image;
 
 estaAutenticado();
 
@@ -35,49 +36,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $propiedad = new Propiedad($_POST);
 
-  $errores =  $propiedad->validar();
+  // Generar un nombre unico 
+  $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+  if ($_FILES['imagen']['tmp_name']) {
+    $manager = new Image(Driver::class);
+    $image = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
+    $propiedad->setImagen($nombreImagen);
+  } 
 
+  $errores =  $propiedad->validar();
 
 
   // REVISAR QUE EL ARRAY DE ERRORES EST VACIO
   if (empty($errores)) {
 
-    $propiedad->guardar();
-
-
-    //Asignar files hacia una variable 
-    $imagen = $_FILES['imagen'];
-  
-
-
-
-  //  echo "<pre>";
-  //  var_dump($errores); 
-  //  echo "</pre>";  
-  // exit; 
 
     /** SUBIDA DE ARCHIVOS**/
 
-    $carpetaImagenes = '../../imagenes/';
-    if (!is_dir($carpetaImagenes)) {
-      mkdir($carpetaImagenes);
+    
+    if (!is_dir(CARPETA_IMAGENES)) {
+      mkdir(CARPETA_IMAGENES);
     }
 
-    // Generar un nombre unico 
-    $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
+    // GUARDAR LA IMAGEN EN EL SERVIDOR
+    $image->save(CARPETA_IMAGENES . $nombreImagen);
 
+    $resultado = $propiedad->guardar();
 
-    // subir la imagen
-    move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
-
-
-
-
-
-    // echo $query; 
-
-    $resultado = mysqli_query($db, $query);
+    // SUBIR LA IMAGEN
     if ($resultado) {
 
       // REDIRECCIONAR AL USUARIO 
@@ -85,6 +72,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 incluirTemplates('header');

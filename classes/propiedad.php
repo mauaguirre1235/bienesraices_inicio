@@ -9,7 +9,7 @@ class Propiedad {
 
     // BASE DE DATOS
     protected static $db; 
-    protected static $columnasDB = ['id', 'titulo','imagen', 'descripcion','habitaciones','wc','estacionamiento','creado','vendedores_id'];
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion','habitaciones','wc','estacionamiento','creado','vendedores_id'];
 
 
     // Errores 
@@ -40,7 +40,7 @@ class Propiedad {
         $this->id = $args['id'] ?? '';
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
-        $this->imagen = $args['imagen'] ?? 'imagen.jpg';
+        $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
@@ -61,12 +61,10 @@ class Propiedad {
         $query .= " ) VALUES (' "; 
         $query .= join("', '", array_values($atributos));  
         $query .= " ') "; 
- 
-
         $resultado =  self::$db->query($query);  
 
-        debuguear($resultado);  
-
+        return $resultado;  
+ 
     } 
 
     // identificar y unir los atributos de la base de datos
@@ -79,7 +77,6 @@ class Propiedad {
         return $atributos;  
     }
 
-
     public function sanitizarAtributos(){
         $atributos = $this->atributos();
         $sanitizado = [];   
@@ -91,7 +88,6 @@ class Propiedad {
         }
            return $sanitizado; 
     }
-
 
     // Validacion   
 
@@ -129,24 +125,24 @@ class Propiedad {
    if(!$this->vendedores_id) {
     self::$errores[] = "Elige un vendedor";
   }
-//   if(!$this->imagen['name'] || $this->imagen['error']) {
-//     $errores[] = "La imagen es obligatoria";
-//   }
+  
+  if(!$this->imagen) {
+    self::$errores[] = "La imagen es obligatoria";
+  }
 
-//   // Validar por tamano (100 kb por tamano )
 
-//   $medida = 1000 * 100; 
-
-//   if($this->imagen['size'] > $medida ){
-//     $errores[] = 'La imagen es muy pesada'; 
-
-//   }
 
 
    return self::$errores;   
         
     }
 
+
+    public function setImagen($imagen){
+      if($imagen) {
+        $this->imagen = $imagen;
+      } 
+    }
 
 }   
 

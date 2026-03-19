@@ -1,17 +1,10 @@
 <?php 
-
-require '../includes/funciones.php';
-$auth = estaAutenticado(); 
-
-    if(!$auth) {
-      header('Location: /'); 
-
- }
-
-// Importar la conexion 
-require '../includes/config/database.php'; 
-$db = conectarDB(); 
-
+  require '../includes/funciones.php';
+     estaAutenticado();
+ 
+    // Importar la conexion
+    require '../includes/config/database.php';
+    $db = conectarDB();
 // Escribir el Query 
 $query = "SELECT * FROM propiedades"; 
 
@@ -46,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($resultado) {
       header('location: /admin?resultado=3');
+      exit();
     }
   }
 

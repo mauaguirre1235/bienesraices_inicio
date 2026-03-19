@@ -7,7 +7,7 @@ $auth = estaAutenticado();
       header('Location: /'); 
 
  }
- 
+
 
 // Validar la URL por ID valido 
 $id = $_GET['id']; 
