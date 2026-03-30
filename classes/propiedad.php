@@ -51,7 +51,7 @@ class Propiedad
     $this->wc = $args['wc'] ?? '';
     $this->estacionamiento = $args['estacionamiento'] ?? '';
     $this->creado = date('Y/m/d');
-    $this->vendedores_id = $args['vendedores_id'] ?? '';
+    $this->vendedores_id = $args['vendedores_id'] ?? 1;
   }
 
   public function guardar()
@@ -177,7 +177,7 @@ class Propiedad
     }
 
     // Liberar la memoria 
-    $resultado->free(); 
+    $resultado->free();  
 
     // Rotornar 
     return $array;
@@ -198,4 +198,6 @@ class Propiedad
 
    return $objeto; 
   }
+
+
 }
