@@ -35,7 +35,17 @@
 
     <fieldset>
       <legend> Vendedor </legend>
-   
+
+<!-- 
+      <select name="vendedores_id">
+        <option value="">--Seleccione--</option>
+        <?php while ($vendedor = mysqli_fetch_assoc($resultado)): ?>
+          <option <?php echo $vendedores_id === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo s($propiedad->$vendedor['id']); ?>"> <?php echo s($vendedor['nombre'] . " " . $vendedor['apellido']); ?> </option>
+        <?php endwhile;  ?> 
+
+        
+      </select>
+        -->
     </fieldset>
 
   
