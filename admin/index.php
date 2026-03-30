@@ -9,6 +9,8 @@
 $propiedades = Propiedad::all();
 
 debuguear($propiedades); 
+
+
 // Muestra mensjae condicional 
 $resultado = $_GET['resultado'] ?? null; 
 
@@ -72,7 +74,7 @@ incluirTemplates('header');
             </thead>
 
             <tbody> <!--. Mostar los resultados -->
-              <?php while($propiedad = mysqli_fetch_assoc($resultadoConsulta)):?>
+              <?php foreach($propiedades as $propiedad): ?>
               <tr>
                 <td> <?php echo $propiedad["id"]; ?> </td>
                 <td>  <?php echo $propiedad["titulo"]; ?> </td>
@@ -87,7 +89,7 @@ incluirTemplates('header');
                      <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad["id"]; ?>" class="boton-amarillo-block">Actualizar</a>
                 </td>
               </tr>
-              <?php endwhile; ?>
+              <?php endforeach?>
 
             </tbody>
 
