@@ -1,12 +1,10 @@
-<?php 
+<?php
 
-require '../../includes/funciones.php';
-$auth = estaAutenticado(); 
+use App\Propiedad;
 
-    if(!$auth) {
-      header('Location: /'); 
+require '../../includes/app.php';
 
- }
+estaAutenticado(); 
 
 
 // Validar la URL por ID valido 
@@ -18,15 +16,10 @@ if(!$id) {
 }
 
 
-// Base de datos 
-require '../../includes/config/database.php'; 
-$db = conectarDB(); 
 
 
 // Obtener los datos de la propiedad 
-$consulta = "SELECT * FROM propiedades WHERE id = ${id}"; 
-$resultado = mysqli_query($db, $consulta); 
-$propiedad = mysqli_fetch_assoc($resultado);
+$propiedad = Propiedad::find($id); 
 
 // CONSULTAR PARA OBTENER LOS VENDEDORES
 $consulta = "SELECT * FROM vendedores";
