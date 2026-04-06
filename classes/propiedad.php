@@ -171,7 +171,7 @@ class Propiedad
 
     $resultado = self::consultarSQL($query);
 
-    debuguear($resultado); 
+    return array_shift( $resultado); 
   }
 
 
