@@ -35,7 +35,7 @@ class Propiedad
   {
     $resultado =  self::$db = $database;
 
-    return $resultado; 
+    return $resultado;
   }
 
 
@@ -159,19 +159,20 @@ class Propiedad
   {
     $query = "SELECT * FROM propiedades";
 
-   $resultado =  self::consultarSQL($query);
+    $resultado =  self::consultarSQL($query);
 
-   return $resultado; 
+    return $resultado;
   }
 
 
   // Buscar un registro por su id 
-  public static function find($id) {
-    $query = "SELECT * FROM propiedades WHERE id = ${id}"; 
+  public static function find($id)
+  {
+    $query = "SELECT * FROM propiedades WHERE id = ${id}";
 
     $resultado = self::consultarSQL($query);
 
-    return array_shift( $resultado); 
+    return array_shift($resultado);
   }
 
 
@@ -188,11 +189,10 @@ class Propiedad
     }
 
     // Liberar la memoria 
-    $resultado->free();  
+    $resultado->free();
 
     // Rotornar 
     return $array;
-
   }
 
   // metodo para crear un objeto a partir de un registro de la base de datos
@@ -207,8 +207,17 @@ class Propiedad
       }
     }
 
-   return $objeto; 
+    return $objeto;
+  } 
+
+  
+  // sincroniza el objeto en memoria con los cambios realizados por el usaurio
+  public function sincronizar( $args = [])
+  {
+    foreach ($args as $key => $value) {
+      if (property_exists($this, $key) && !is_null($value)) {
+        $this->$key = $value; 
+      }
+    }
   }
-
-
 }
