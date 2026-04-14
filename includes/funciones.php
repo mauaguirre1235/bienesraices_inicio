@@ -31,7 +31,7 @@ exit;
 }
 
 
-// Escapar / Sanitizar el HTML 
+// Escapar / Sanitizar el HTML  
 
 function s($html) : string{
     $s = htmlspecialchars($html);

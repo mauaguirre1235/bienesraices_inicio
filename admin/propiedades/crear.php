@@ -10,7 +10,7 @@ estaAutenticado();
 
 // Base de datos 
 $db = conectarDB();
-
+ 
 $propiedad = new Propiedad;  
 
 // CONSULTAR PARA OBTENER LOS VENDEDORES
@@ -31,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $propiedad = new Propiedad($_POST['propiedad']);
 
 
-
-
+  debuguear($propiedad); 
 
   
 

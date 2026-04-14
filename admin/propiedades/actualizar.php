@@ -1,6 +1,8 @@
 <?php
 
 use App\Propiedad;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager as Image;
 
 require '../../includes/app.php';
 
@@ -43,40 +45,28 @@ $args = $_POST['propiedad'];
   $propiedad->sincronizar($args);
   
 
- 
+  // validacion
   $errores = $propiedad->validar();
   
 
+   // Generar un nombre unico 
+  $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
+
+  // subida de archivos
+  if ($_FILES['propiedad']['tmp_name']['imagen']) {
+    $manager = new Image(Driver::class);
+    $image = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
+    $propiedad->setImagen($nombreImagen);
+  } 
+ 
+     debuguear($propiedad); 
+    
 
   // REVISAR QUE EL ARRAY DE ERRORES EST VACIO
   if (empty($errores)) {
-    // Crear carpeta 
-    $carpetaImagenes = '../../imagenes/';
-    if (!is_dir($carpetaImagenes)) {
-      mkdir($carpetaImagenes);
-    }
-
-    $nombreImagen = '';
-
-    /** SUBIDA DE ARCHIVOS**/
-
-    if ($imagen['name']) {
-
-      // Eliminar la imagen previa 
-      unlink($carpetaImagenes . $propiedad['imagen']);
-
-      // // Generar un nombre unico 
-      $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-
-
-      // // subir la imagen
-      move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
-    } else {
-
-      $nombreImagen = $propiedad['imagen'];
-    }
-
+ 
+  exit; 
 
 
     // INSERTAR EN LA BASE DE DATOS 

@@ -95,6 +95,27 @@ class Propiedad
     return $sanitizado;
   }
 
+  // Subida de archivos
+    public function setImagen($imagen)
+  { 
+    // Elimina la imagen previa 
+
+    if($this->id) {
+          // comprobar si existe el archivo 
+          $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen); 
+          
+          if($existeArchivo){
+            unlink(CARPETA_IMAGENES . $this->imagen); 
+          }
+
+          } 
+    
+    if ($imagen) {
+      $this->imagen = $imagen;
+    }
+  }
+
+
   // Validacion   
 
   public static function getErrores()
@@ -145,12 +166,6 @@ class Propiedad
   }
 
 
-  public function setImagen($imagen)
-  {
-    if ($imagen) {
-      $this->imagen = $imagen;
-    }
-  }
 
 
   //lista todos los registros
