@@ -5,6 +5,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
 require '../../includes/app.php';
+global $db;
 
 estaAutenticado();
 
@@ -15,6 +16,7 @@ $id = filter_var($id, FILTER_VALIDATE_INT);
 
 if (!$id) {
   header('Location: /admin');
+  exit;
 }
 
 
@@ -34,7 +36,6 @@ $errores = Propiedad::getErrores();
 
 
 
-
 // Ejecuta el codigo despues de que el usuario envia el formulario 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -47,7 +48,7 @@ $args = $_POST['propiedad'];
 
   // validacion
   $errores = $propiedad->validar();
-  
+
 
    // Generar un nombre unico 
   $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
@@ -59,32 +60,18 @@ $args = $_POST['propiedad'];
     $image = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
     $propiedad->setImagen($nombreImagen);
   } 
- 
-     debuguear($propiedad); 
-    
 
   // REVISAR QUE EL ARRAY DE ERRORES EST VACIO
   if (empty($errores)) {
- 
-  exit; 
+
+  //ALMACENAR LA IMAGEN 
+ $image->save(CARPETA_IMAGENES . $nombreImagen); 
+  
+$propiedad->guardar(); 
 
 
-    // INSERTAR EN LA BASE DE DATOS 
-    $query = " UPDATE propiedades SET titulo = '${titulo}', precio = '${precio}', imagen= '${nombreImagen}', descripcion = '${descripcion}', habitaciones = ${habitaciones}
-        , wc = ${wc} , estacionamiento = ${estacionamiento}, vendedores_id = ${vendedores_id} WHERE id = ${id} ";
-
-
-    //  echo $query;  
-
-
-
-    $resultado = mysqli_query($db, $query);
-
-    if ($resultado) {
-
-      // REDIRECCIONAR AL USUARIO 
-      header('Location: /admin?resultado=2');
-    }
+   
+  
   }
 }
 
