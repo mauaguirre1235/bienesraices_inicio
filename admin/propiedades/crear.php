@@ -62,15 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // GUARDAR LA IMAGEN EN EL SERVIDOR
     $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-    $resultado = $propiedad->guardar();
+     $propiedad->guardar();
 
-    // SUBIR LA IMAGEN
-    if ($resultado) {
-
-      // REDIRECCIONAR AL USUARIO 
-      header('Location: /admin?resultado=1');
-      exit();
-    }
+   
   }
 }
 
