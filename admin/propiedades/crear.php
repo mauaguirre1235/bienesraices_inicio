@@ -31,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $propiedad = new Propiedad($_POST['propiedad']);
 
 
-  debuguear($propiedad); 
-
+ 
   
 
   // Generar un nombre unico 
@@ -70,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // REDIRECCIONAR AL USUARIO 
       header('Location: /admin?resultado=1');
+      exit();
     }
   }
 }

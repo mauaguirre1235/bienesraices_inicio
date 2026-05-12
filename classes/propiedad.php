@@ -55,13 +55,13 @@ class Propiedad
   }
 
   public function guardar(){
-    if(isset($this->id)){
+    if(!empty($this->id)){
 
     // actualizar 
-    $this->actualizar(); 
+    return $this->actualizar(); 
 
     } else {
-      $this->crear(); 
+      return $this->crear(); 
     }
 
   }
@@ -80,7 +80,9 @@ class Propiedad
     $query .= join("', '", array_values($atributos));
     $query .= " ') ";
     $resultado =  self::$db->query($query);
-
+    if ($resultado) {
+      $this->id = self::$db->insert_id;
+    }
     return $resultado;
   }
 
@@ -105,6 +107,21 @@ $resultado = self::$db->query($query);
       header('Location: /admin?resultado=2');
     }
        
+  }
+
+  // Eliminar un registro 
+  public function eliminar() {
+      // Eliminar la propiedad 
+    $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+    $resultado = self::$db->query($query); 
+
+    if($resultado) {
+      $this->borrarImagen(); 
+      header('location: /admin?resultado=3');
+      exit();
+    }
+
+    
   }
 
   // identificar y unir los atributos de la base de datos
@@ -136,12 +153,7 @@ $resultado = self::$db->query($query);
     // Elimina la imagen previa 
 
     if(isset ($this->id) ){
-          // comprobar si existe el archivo 
-          $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen); 
-          
-          if($existeArchivo){
-            unlink(CARPETA_IMAGENES . $this->imagen); 
-          }
+      $this->borrarImagen(); 
 
           } 
     
@@ -150,6 +162,15 @@ $resultado = self::$db->query($query);
     }
   }
 
+  // Eliminar archivo
+  public function borrarImagen(){
+      // comprobar si existe el archivo y que no sea vacío ni directorio
+      $rutaImagen = CARPETA_IMAGENES . $this->imagen;
+      if(!empty($this->imagen) && file_exists($rutaImagen) && is_file($rutaImagen)) {
+          unlink($rutaImagen);
+      }
+    
+  }
 
   // Validacion   
 

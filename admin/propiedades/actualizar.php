@@ -64,8 +64,10 @@ $args = $_POST['propiedad'];
   // REVISAR QUE EL ARRAY DE ERRORES EST VACIO
   if (empty($errores)) {
 
-  //ALMACENAR LA IMAGEN 
- $image->save(CARPETA_IMAGENES . $nombreImagen); 
+  //ALMACENAR LA IMAGEN SOLO SI SE SUBIO UNA NUEVA
+  if (isset($image)) {
+    $image->save(CARPETA_IMAGENES . $nombreImagen);
+  }
   
 $propiedad->guardar(); 
 
