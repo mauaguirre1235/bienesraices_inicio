@@ -2,20 +2,18 @@
 require '../../includes/app.php';
 
 use App\Propiedad;
+use App\Vendedor; 
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
 estaAutenticado();
 
-
-// Base de datos 
-$db = conectarDB();
  
 $propiedad = new Propiedad;  
 
-// CONSULTAR PARA OBTENER LOS VENDEDORES
-$consulta = "SELECT * FROM vendedores";
-$resultado = mysqli_query($db, $consulta);
+// Consulta para obtener todos los vendedores 
+$vendedores = Vendedor::all(); 
+
 
 
 // Arreglo con mensajes de errores 
