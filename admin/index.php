@@ -11,7 +11,6 @@
 $propiedades = Propiedad::all();
 $vendedores = Vendedor::all(); 
 
-debuguear($vendedores); 
 
 
 // Muestra mensjae condicional 
