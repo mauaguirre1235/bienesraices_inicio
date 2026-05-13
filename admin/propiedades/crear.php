@@ -15,7 +15,6 @@ $propiedad = new Propiedad;
 
 // CONSULTAR PARA OBTENER LOS VENDEDORES
 $consulta = "SELECT * FROM vendedores";
-
 $resultado = mysqli_query($db, $consulta);
 
 
