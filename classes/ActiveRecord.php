@@ -92,7 +92,7 @@ $resultado = self::$db->query($query);
     if($resultado) {
       $this->borrarImagen(); 
       header('location: /admin?resultado=3');
-      exit();
+      
     }
 
     
