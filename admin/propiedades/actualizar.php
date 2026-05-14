@@ -3,6 +3,7 @@
 use App\Propiedad;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
+use App\Vendedor; 
 
 require '../../includes/app.php';
 global $db;
@@ -25,11 +26,9 @@ if (!$id) {
 // Obtener los datos de la propiedad 
 $propiedad = Propiedad::find($id);
 
+// consulta para obtener todos los vendedores
+$vendedores = Vendedor::all(); 
 
-
-// CONSULTAR PARA OBTENER LOS VENDEDORES
-$consulta = "SELECT * FROM vendedores";
-$resultado = mysqli_query($db, $consulta);
 
 // Arreglo con mensajes de errores 
 $errores = Propiedad::getErrores();
@@ -64,9 +63,10 @@ $args = $_POST['propiedad'];
   // REVISAR QUE EL ARRAY DE ERRORES EST VACIO
   if (empty($errores)) {
 
+  if ($_FILES['propiedad']['tmp_name']['imagen']){
+
   //ALMACENAR LA IMAGEN SOLO SI SE SUBIO UNA NUEVA
-  if (isset($image)) {
-    $image->save(CARPETA_IMAGENES . $nombreImagen);
+  $image->save(CARPETA_IMAGENES . $nombreImagen); 
   }
   
 $propiedad->guardar(); 

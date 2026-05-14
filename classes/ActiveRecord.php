@@ -19,9 +19,8 @@ class activeRecord {
   // Definir la conexion a la base de datos
   public static function setDB($database)
   {
-    $resultado =  self::$db = $database;
+   self::$db = $database;
 
-    return $resultado;
   }
 
 
@@ -103,7 +102,7 @@ $resultado = self::$db->query($query);
   public function atributos()
   {
     $atributos = [];
-    foreach (self::$columnasDB as $columna) {
+    foreach (static::$columnasDB as $columna) {
       if ($columna === 'id') continue;
       $atributos[$columna] = $this->$columna;
     }
@@ -197,7 +196,7 @@ $resultado = self::$db->query($query);
     // Iterar los resultados  
     $array = [];
     while ($registro = $resultado->fetch_assoc()) {
-      $array[] = self::crearObjeto($registro);
+      $array[] = static::crearObjeto($registro);
     }
 
     // Liberar la memoria 
