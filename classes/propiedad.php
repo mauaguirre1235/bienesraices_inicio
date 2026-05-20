@@ -26,6 +26,7 @@ protected static $tabla = 'propiedades';
   public function __construct($args = [])
   { 
 
+  
     $this->id = $args['id'] ?? null;
     $this->titulo = $args['titulo'] ?? '';
     $this->precio = $args['precio'] ?? '';

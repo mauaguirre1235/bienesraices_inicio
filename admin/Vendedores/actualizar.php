@@ -34,6 +34,7 @@ $args = $_POST['vendedor'];
 $vendedor->sincronizar($args);  
 
 
+
 // validacion 
 $errores = $vendedor->validar(); 
 

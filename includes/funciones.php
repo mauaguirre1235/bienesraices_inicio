@@ -47,4 +47,23 @@ function validarTipoContenido($tipo){
 }
 
 
+// Muestra los mensajes 
+function mostrarNotificacion($codigo){
+    $mensaje = ''; 
+    switch ($codigo) {  
+        case 1:
+            $mensaje = 'Creado Correctamete'; 
+            break;
+              case 2:
+            $mensaje = 'Actualizado Correctamente'; 
+            break;
+              case 3:
+            $mensaje = 'Eliminado Correctamete'; 
+            break;
 
+            default:
+            $mensaje = 'False';
+            break;
+    }
+    return $mensaje;    
+}

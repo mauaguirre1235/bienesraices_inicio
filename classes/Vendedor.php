@@ -32,7 +32,7 @@ class Vendedor extends activeRecord {
     if(!$this->apellido){
       self::$errores[] = "El apellido es obligatorio";
 
-  }
+  }  
 
     if(!$this->telefono){
       self::$errores[] = "El telefono es obligatorio";
