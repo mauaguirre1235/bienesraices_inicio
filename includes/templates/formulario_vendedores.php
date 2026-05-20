@@ -16,6 +16,6 @@
     <fieldset>
       <legend>Informacion Extra</legend>
       <label for="apellido">Telefono:</label>
-      <input type="text" id="telefono" name="vendedor[telefono]" placeholder="Telefono Vendedor(a)" value="<?php echo s($vendedor->telefono); ?>">
+      <input type="text" id="telefono" name="vendedor[telefono]" placeholder="Telefono Vendedor(a)" value="<?php echo s($vendedor->telefono); ?>" maxlength="10" pattern="\d{10}" title="El teléfono debe tener exactamente 10 dígitos">
 
     </fieldset>

@@ -1,6 +1,6 @@
 <?php 
 
-namespace App; 
+namespace App;  
 
 class Vendedor extends activeRecord {
     protected static $tabla = 'vendedores';
@@ -39,12 +39,11 @@ class Vendedor extends activeRecord {
 
   }
 
-  // validacion para el telefono
-  if(!preg_match('/[0-9]{10}/', $this->telefono)){
-        self::$errores[] = "Formato no valido";
-
-  }
-  return self::$errores; 
+    // validación para el teléfono: exactamente 10 dígitos
+    if(!preg_match('/^\d{10}$/', $this->telefono)){
+      self::$errores[] = "El teléfono debe tener exactamente 10 dígitos";
+    }
+    return self::$errores;
 }
 
 } 
