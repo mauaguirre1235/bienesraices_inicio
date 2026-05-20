@@ -162,7 +162,6 @@ $resultado = self::$db->query($query);
 
 
 
-
   //lista todos los registros
 
   public static function all()
