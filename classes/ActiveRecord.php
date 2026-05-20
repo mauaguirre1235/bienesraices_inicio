@@ -174,6 +174,18 @@ $resultado = self::$db->query($query);
     return $resultado;
   }
 
+  // Obtiene determinado numero de registros
+ public static function get($cantidad)
+  {
+    $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
+
+    
+
+    $resultado =  self::consultarSQL($query);
+
+    return $resultado;
+  }
+
 
   // Buscar un registro por su id 
   public static function find($id)
